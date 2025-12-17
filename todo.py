@@ -27,16 +27,22 @@ def view_tasks():
         print("\nYour Tasks:")
         for index, task in enumerate(tasks, start=1):
             print(f"{index}. {task}")
-
 def delete_task():
-    view_tasks()
     if not tasks:
+        print("No tasks to delete.")
         return
+
+    view_tasks()
 
     try:
         choice = int(input("Enter task number to delete: "))
+        if choice < 1 or choice > len(tasks):
+            print("Invalid task number.")
+            return
+
         removed = tasks.pop(choice - 1)
         save_tasks()
         print(f"Removed task: {removed}")
-    except (ValueError, IndexError):
-        print("Invalid task number.")
+
+    except ValueError:
+        print("Please enter a valid number.")
